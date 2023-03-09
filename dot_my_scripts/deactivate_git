@@ -1,0 +1,11 @@
+#!/bin/bash
+
+while  read line;
+do
+  alias_name=$(echo $line | cut -d':' -f1 | xargs)
+  unalias "$alias_name"
+done < alias_list
+
+export PS1="$OLD_PS1"
+export OLD_PS1=$PS1
+

@@ -1,0 +1,5 @@
+add: "git add"
+status: "git status"
+commit: "git commit"
+checkout: "git checkout"
+merge: "git merge"

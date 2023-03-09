@@ -1,0 +1,13 @@
+#!/bin/bash
+
+while  read line;
+do
+  alias_name=$(echo $line | cut -d':' -f1 | xargs)
+  command_=$(echo $line | cut -d':' -f2 | xargs)
+
+  alias "$alias_name=$command_"
+done < alias_list
+
+export OLD_PS1=$PS1
+export PS1="(git) $PS1"
+echo $OLD_PS1

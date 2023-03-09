@@ -1,0 +1,9 @@
+//@theme "/usr/share/rofi/themes/gruvbox-dark-soft.rasi"
+configuration{
+  //run-command: "~/runner.sh {cmd}";
+  //run-shell-command: "{terminal} -e {~/runner.sh cmd}";
+
+}
+
+//@theme "/usr/share/rofi/themes/Monokai.rasi"
+@theme "/usr/share/rofi/themes/glue_pro_blue.rasi"
