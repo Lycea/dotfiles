@@ -32,11 +32,15 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(javascript
+   '(html
+     lua
+     (javascript :variables
+                 javascript-backend 'lsp)
+     tern
      yaml
      python
      ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
+     ;; Example of useful layers you may want to use right away .
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
@@ -45,21 +49,35 @@ This function should only modify configuration layer settings."
      emacs-lisp
      git
      helm
-     ;; lsp
+     lsp
      markdown
      multiple-cursors
-     org
+     (org :variables
+                    ;;enable packages
+          org-enable-roam-support t
+          org-enable-roam-ui t
+
+          ;;org-directory(expand-file-name "~/Documents/org")
+
+          ;;roam stuff
+          ;;org-roam-directory(file-name-concat org-directory "roam_notes")
+          ;;org-roam-db-location(file-name-concat org-directory "db" "org-roam.db")
+      )
      outshine
      imenu-list
-     shell
+     (shell :variables
+            terminal-here-linux-terminal-command 'terminator)
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
-     tabs
-     treemacs)
+     (tabs :variables
+           centaur-tabs-set-bar 'under
+           )
+     treemacs
+     doom-themes)
 
 
    ;; List of additional packages that will be installed without being wrapped
@@ -575,6 +593,19 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  ;; variable to be set to enabled to have autosync for the note  database
+  ;;  (org-roam-db-autosync-enable)
+  ;; variable for the tern location , tern is used for javascript completion (hopefully)
+  (setq tern-command '("node" "/usr/local/bin/tern"))
+  (setq org-directory(expand-file-name "~/Documents/org"))
+
+  ;;roam stuff
+  (setq org-roam-directory(file-name-concat org-directory "roam_notes"))
+  (setq org-roam-db-location(file-name-concat org-directory "db" "org-roam.db"))
+
+  ;; variable to be set to enabled to have autosync for the note  database
+  (org-roam-db-autosync-enable)
+
 )
 
 
@@ -590,8 +621,9 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files '("~/Documents/org/main_todo.org"))
  '(package-selected-packages
-   '(add-node-modules-path counsel-gtags counsel swiper ivy dap-mode lsp-docker lsp-treemacs bui lsp-mode ggtags helm-gtags impatient-mode import-js grizzl js-doc js2-refactor multiple-cursors livid-mode nodejs-repl npm-mode prettier-js skewer-mode js2-mode simple-httpd tern web-beautify yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum which-key volatile-highlights vim-powerline vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org terminal-here term-cursor symon symbol-overlay string-inflection string-edit-at-point sphinx-doc spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons space-doc smeargle shell-pop restart-emacs request rainbow-delimiters quickrun pytest pylookup pyenv-mode pydoc py-isort popwin poetry pippel pipenv pip-requirements pcre2el password-generator paradox overseer outshine orgit-forge org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-download org-contrib org-cliplink open-junk-file nose nameless multi-vterm multi-term multi-line monokai-theme mmm-mode markdown-toc macrostep lorem-ipsum live-py-mode link-hint inspector info+ indent-guide importmagic hybrid-mode hungry-delete htmlize holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-git-grep helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-templates git-timemachine git-modes git-messenger git-link gh-md fuzzy font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emr elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word cython-mode company-anaconda column-enforce-mode code-cells clean-aindent-mode centered-cursor-mode centaur-tabs blacken auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell)))
+   '(company-web web-completion-data counsel-css emmet-mode helm-css-scss pug-mode sass-mode haml-mode scss-mode slim-mode tagedit web-mode company-lua lua-mode flycheck-pos-tip pos-tip helm-lsp lsp-origami origami lsp-pyright lsp-python-ms lsp-ui org-roam-ui websocket org-roam add-node-modules-path counsel-gtags counsel swiper ivy dap-mode lsp-docker lsp-treemacs bui lsp-mode ggtags helm-gtags impatient-mode import-js grizzl js-doc js2-refactor multiple-cursors livid-mode nodejs-repl npm-mode prettier-js skewer-mode js2-mode simple-httpd tern web-beautify yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum which-key volatile-highlights vim-powerline vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org terminal-here term-cursor symon symbol-overlay string-inflection string-edit-at-point sphinx-doc spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons space-doc smeargle shell-pop restart-emacs request rainbow-delimiters quickrun pytest pylookup pyenv-mode pydoc py-isort popwin poetry pippel pipenv pip-requirements pcre2el password-generator paradox overseer outshine orgit-forge org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-download org-contrib org-cliplink open-junk-file nose nameless multi-vterm multi-term multi-line monokai-theme mmm-mode markdown-toc macrostep lorem-ipsum live-py-mode link-hint inspector info+ indent-guide importmagic hybrid-mode hungry-delete htmlize holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-git-grep helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-templates git-timemachine git-modes git-messenger git-link gh-md fuzzy font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emr elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word cython-mode company-anaconda column-enforce-mode code-cells clean-aindent-mode centered-cursor-mode centaur-tabs blacken auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
